@@ -263,6 +263,10 @@ services:
       GF_DASHBOARDS_DEFAULT_HOME_DASHBOARD_PATH: /etc/grafana/dashboards/movie-analytics.json
       GF_ANALYTICS_REPORTING_ENABLED: "false"
       GF_ANALYTICS_CHECK_FOR_UPDATES: "false"
+      # встроенная SQLite Grafana в контейнере ловит "database is locked": WAL-режим + без алертинга
+      GF_DATABASE_WAL: "true"
+      GF_UNIFIED_ALERTING_ENABLED: "false"
+      GF_ALERTING_ENABLED: "false"
     ports:
       - "3000:3000"
     depends_on:
