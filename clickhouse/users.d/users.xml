@@ -1,0 +1,38 @@
+<clickhouse>
+    <profiles>
+        <default>
+            <max_memory_usage>500000000</max_memory_usage>
+            <max_threads>4</max_threads>
+        </default>
+        <!-- readonly=2: только чтение данных, но клиент может менять настройки сессии (нужно Grafana) -->
+        <grafana>
+            <readonly>2</readonly>
+            <max_memory_usage>300000000</max_memory_usage>
+            <max_threads>2</max_threads>
+        </grafana>
+    </profiles>
+
+    <users>
+        <!-- default без пароля доступен только изнутри контейнера (healthcheck) -->
+        <default>
+            <networks replace="replace">
+                <ip>127.0.0.1</ip>
+                <ip>::1</ip>
+            </networks>
+        </default>
+        <!-- сервисы: миграции, агрегация, тесты -->
+        <app>
+            <password>app</password>
+            <networks><ip>::/0</ip></networks>
+            <profile>default</profile>
+            <quota>default</quota>
+        </app>
+        <!-- Grafana: только чтение -->
+        <grafana>
+            <password>grafana</password>
+            <networks><ip>::/0</ip></networks>
+            <profile>grafana</profile>
+            <quota>default</quota>
+        </grafana>
+    </users>
+</clickhouse>

@@ -1,0 +1,3 @@
+# Образ миграций PostgreSQL: Flyway + SQL-файлы внутри (без bind mount)
+FROM flyway/flyway:10
+COPY postgres/migrations /flyway/sql
